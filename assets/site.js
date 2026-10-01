@@ -46,6 +46,9 @@ document.querySelectorAll('iframe[title*="Map showing"]').forEach(map=>map.src='
 const header=document.querySelector('.site-header');
 if(header&&!header.querySelector('.header-phone')){const phone=document.createElement('a');phone.className='header-phone';phone.href=contactPhoneHref;phone.textContent=contactPhone;phone.setAttribute('aria-label',`Call Aires Linehaul on ${contactPhone}`);header.insertBefore(phone,header.querySelector('.header-cta'))}
 const button=document.querySelector('.menu');
+if(button){button.innerHTML='<span></span><span></span><span></span>';button.setAttribute('aria-label','Open navigation menu')}
+const headerCta=header?.querySelector('.header-cta');
+if(headerCta)headerCta.innerHTML='<span class="desktop-label">Request a Quote</span><span class="mobile-label">Get Quote</span>';
 button?.addEventListener('click',()=>{const open=nav.classList.toggle('open');button.setAttribute('aria-expanded',String(open))});
 nav?.addEventListener('click',()=>{nav.classList.remove('open');button?.setAttribute('aria-expanded','false')});
 if(!document.querySelector('.mobile-contact-actions')){
