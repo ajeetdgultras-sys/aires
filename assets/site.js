@@ -31,8 +31,15 @@ if(servicesLink){
   if(!submenu){submenu=document.createElement('div');submenu.className='submenu';dropdown.appendChild(submenu)}
   submenu.innerHTML=servicesNav.map(([slug,label])=>`<a href="/services/${slug}/">${label}</a>`).join('');
 }
-document.querySelectorAll('a[href^="mailto:"]').forEach(link=>{link.href=`mailto:${contactEmail}`;if(link.textContent.includes('@'))link.textContent=contactEmail});
+document.querySelectorAll('a[href^="mailto:"]').forEach(link=>{link.href=`mailto:${contactEmail}`;if(link.textContent.includes('@')||link.closest('footer'))link.textContent=contactEmail});
 document.querySelectorAll('.header-phone').forEach(link=>{link.href=contactPhoneHref;link.textContent=contactPhone;link.setAttribute('aria-label',`Call Aires Linehaul on ${contactPhone}`)});
+const footerContact=[...document.querySelectorAll('footer .footer-grid>div')].find(section=>section.querySelector('h3')?.textContent.trim().toLowerCase()==='contact');
+if(footerContact&&!footerContact.querySelector('.footer-contact-details')){
+  const details=document.createElement('div');
+  details.className='footer-contact-details';
+  details.innerHTML=`<a href="${contactPhoneHref}">${contactPhone}</a><span><b>Office Hours</b>Monday–Friday, 9:00am–5:00pm</span><span><b>Operating Hours</b>24 hours, Monday–Sunday<br>365 days a year</span>`;
+  footerContact.appendChild(details);
+}
 const header=document.querySelector('.site-header');
 if(header&&!header.querySelector('.header-phone')){const phone=document.createElement('a');phone.className='header-phone';phone.href=contactPhoneHref;phone.textContent=contactPhone;phone.setAttribute('aria-label',`Call Aires Linehaul on ${contactPhone}`);header.insertBefore(phone,header.querySelector('.header-cta'))}
 const button=document.querySelector('.menu');
