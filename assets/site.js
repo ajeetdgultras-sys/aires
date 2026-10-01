@@ -15,6 +15,7 @@ const servicesNav=[
 const contactPhone='+61 452 217 808';
 const contactPhoneHref='tel:+61452217808';
 const contactEmail='lakra@airesrelocations.com.au';
+const contactAddress='9 Maughan Way, Cranbourne West VIC 3977, Australia';
 const nav=document.querySelector('#nav');
 const servicesLink=[...nav.querySelectorAll('a')].find(link=>link.textContent.trim().startsWith('Our Services'));
 if(servicesLink){
@@ -37,9 +38,11 @@ const footerContact=[...document.querySelectorAll('footer .footer-grid>div')].fi
 if(footerContact&&!footerContact.querySelector('.footer-contact-details')){
   const details=document.createElement('div');
   details.className='footer-contact-details';
-  details.innerHTML=`<a href="${contactPhoneHref}">${contactPhone}</a><span><b>Office Hours</b>Monday–Friday, 9:00am–5:00pm</span><span><b>Operating Hours</b>24 hours, Monday–Sunday<br>365 days a year</span>`;
+  details.innerHTML=`<span><b>Address</b>${contactAddress}</span><a href="${contactPhoneHref}">${contactPhone}</a><span><b>Office Hours</b>Monday–Friday, 9:00am–5:00pm</span><span><b>Operating Hours</b>24 hours, Monday–Sunday<br>365 days a year</span>`;
   footerContact.appendChild(details);
 }
+document.querySelectorAll('.footer-map h3').forEach(title=>title.textContent='Cranbourne West, Victoria');
+document.querySelectorAll('iframe[title*="Map showing"]').forEach(map=>map.src='https://www.google.com/maps?q='+encodeURIComponent(contactAddress)+'&output=embed');
 const header=document.querySelector('.site-header');
 if(header&&!header.querySelector('.header-phone')){const phone=document.createElement('a');phone.className='header-phone';phone.href=contactPhoneHref;phone.textContent=contactPhone;phone.setAttribute('aria-label',`Call Aires Linehaul on ${contactPhone}`);header.insertBefore(phone,header.querySelector('.header-cta'))}
 const button=document.querySelector('.menu');
