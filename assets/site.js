@@ -58,6 +58,13 @@ if(!document.querySelector('.mobile-contact-actions')){
 const form=document.querySelector('#contact-form');
 form?.addEventListener('submit',async event=>{
   event.preventDefault();
+  if(location.hostname.endsWith('vercel.app')){
+    const data=new FormData(form);
+    const subject=encodeURIComponent(`Website enquiry — ${data.get('service')}`);
+    const body=encodeURIComponent(`Name: ${data.get('name')}\nCompany: ${data.get('company')||'Not provided'}\nEmail: ${data.get('email')}\nPhone: ${data.get('phone')}\nService: ${data.get('service')}\n\nMovement details:\n${data.get('message')}`);
+    window.location.href=`mailto:${contactEmail}?subject=${subject}&body=${body}`;
+    return;
+  }
   const submit=form.querySelector('button[type="submit"]');
   const note=form.querySelector('#form-note');
   submit.disabled=true;
