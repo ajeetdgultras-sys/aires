@@ -48,5 +48,34 @@ if(header&&!header.querySelector('.header-phone')){const phone=document.createEl
 const button=document.querySelector('.menu');
 button?.addEventListener('click',()=>{const open=nav.classList.toggle('open');button.setAttribute('aria-expanded',String(open))});
 nav?.addEventListener('click',()=>{nav.classList.remove('open');button?.setAttribute('aria-expanded','false')});
+if(!document.querySelector('.mobile-contact-actions')){
+  const actions=document.createElement('div');
+  actions.className='mobile-contact-actions';
+  actions.setAttribute('aria-label','Quick contact options');
+  actions.innerHTML=`<a class="mobile-call" href="${contactPhoneHref}" aria-label="Call Aires Linehaul"><span aria-hidden="true">☎</span> Call</a><a class="mobile-whatsapp" href="https://wa.me/61452217808?text=${encodeURIComponent('Hi Aires Linehaul, I would like to discuss a transport requirement.')}" target="_blank" rel="noopener noreferrer" aria-label="Message Aires Linehaul on WhatsApp"><span aria-hidden="true">◉</span> WhatsApp</a>`;
+  document.body.appendChild(actions);
+}
 const form=document.querySelector('#contact-form');
-form?.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form);const subject=encodeURIComponent(`Website enquiry — ${data.get('service')}`);const body=encodeURIComponent(`Name: ${data.get('name')}\nCompany: ${data.get('company')||'Not provided'}\nEmail: ${data.get('email')}\nPhone: ${data.get('phone')}\nService: ${data.get('service')}\n\nMovement details:\n${data.get('message')}`);window.location.href=`mailto:${contactEmail}?subject=${subject}&body=${body}`});
+form?.addEventListener('submit',async event=>{
+  event.preventDefault();
+  const submit=form.querySelector('button[type="submit"]');
+  const note=form.querySelector('#form-note');
+  submit.disabled=true;
+  submit.textContent='Sending…';
+  note.textContent='Sending your enquiry…';
+  note.className='form-note';
+  try{
+    const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    const result=await response.json();
+    if(!response.ok||!result.ok)throw new Error(result.message||'Unable to send your enquiry.');
+    form.reset();
+    note.textContent='Thank you. Your enquiry has been sent to the Aires team.';
+    note.className='form-note success';
+  }catch(error){
+    note.textContent=error.message||'Unable to send right now. Please call or email our team.';
+    note.className='form-note error';
+  }finally{
+    submit.disabled=false;
+    submit.textContent='Send Enquiry';
+  }
+});
