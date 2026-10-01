@@ -133,7 +133,8 @@ a{color:inherit}
 .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:2px solid var(--red);outline-offset:1px}
 .contact-form textarea{resize:vertical}
 .contact-form button{border:0;cursor:pointer}
-.form-note{font-size:.78rem;color:#6d777d;margin:14px 0 0}
+.form-note{font-size:.78rem;color:#6d777d;margin:14px 0 0}.form-note.success{color:#14733b;font-weight:800}.form-note.error{color:#b51219;font-weight:800}.form-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}.contact-form button:disabled{opacity:.65;cursor:wait}
+.mobile-contact-actions{display:none}
 .services-page-hero{position:relative;overflow:hidden;min-height:650px;background:linear-gradient(90deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.9) 42%,rgba(5,5,5,.25) 100%),url('service-linehaul-v2.png') center/cover;color:#fff;display:flex;align-items:center;padding:95px 0}
 .services-page-hero:after{content:'';position:absolute;right:-120px;bottom:-250px;width:520px;height:520px;border:90px solid rgba(243,29,36,.18);border-radius:50%}
 .services-hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr .8fr;gap:90px;align-items:end;width:100%}
@@ -237,4 +238,5 @@ footer{background:var(--ink);border-top:1px solid #89939a;color:#fff;padding:70p
 .quote{padding-top:68px;padding-bottom:72px}
 .footer-grid{gap:26px}
 .footer-grid>div{border-bottom:1px solid #33424c;padding-bottom:24px}
+.mobile-contact-actions{position:fixed;z-index:60;left:12px;right:12px;bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:env(safe-area-inset-bottom)}.mobile-contact-actions a{min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;text-decoration:none;text-transform:uppercase;font:800 .86rem 'Archivo',Arial,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.28)}.mobile-call{background:#111c23}.mobile-whatsapp{background:#168a49}.mobile-contact-actions span{font-size:1.15rem}body{padding-bottom:76px}
 }
